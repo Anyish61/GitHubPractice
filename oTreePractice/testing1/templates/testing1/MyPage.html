@@ -1,6 +1,26 @@
 {% extends "global/Page.html" %}
 {% load otree static %}
 
+{% block global_styles  %}
+<style>
+    body {
+        text-align: center;
+    }
+    .speech-area {
+        margin: auto;
+        padding: 8px;
+        text-align: center;
+        border: 4px solid black;
+        width: 280px;
+        height: auto;
+        font-size: 40px;
+        /* display: none; */
+    }
+    .debug-info {
+        display: none;
+    }
+</style>
+{% endblock %}
 {% block title %}
     問
 {% endblock %}
@@ -8,7 +28,49 @@
 {% block content %}
 
     大家好
+
+    {% block global_scripts %}
+    <button type="button" id="speak-button"> 請點擊播放語音 </button>
+    <script>
+    // 按下播放按鈕
+        var synth = window.speechSynthesis;
+        $('#speak-button').click(function (){
+            text = '我 2週後 得到 120元'//$('#speak-button').text();
+            alert('speak-button: clicked')
+            speak(text)
+        })  
+        
+        function speak(text){
+        var utterThis = new SpeechSynthesisUtterance(text);
+
+        if(synth.speaking){
+            console.error('speechSynthesis.speaking');
+            return;
+        }
+        if (text !== ''){
+
+        utterThis.onend = function(event) {
+            console.log('SpeechSynthesisUtterance.onend')
+        }
+        utterThis.onerror = function(event){
+            console.error('SpeechSynthesisUtterance.onerror')
+        }
+        utterThis.pitch = 1.0;
+        utterThis.rate = 0.8; //0.7 or 0.8 or 0.9
+        synth.speak(utterThis);
+        //alert(text)
+}
+        }
+    </script>
+    {% endblock %}
+    <div class="speech-area">
+    	我
+        2 週後  <br>
+        得到 <br>
+        120 元
+    </div>  
     {% formfields %}
     {% next_button %}
 
 {% endblock %}
+
