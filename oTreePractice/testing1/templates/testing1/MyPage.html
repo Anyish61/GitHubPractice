@@ -28,8 +28,8 @@
 {% block content %}
 
     大家好
-
     {% block global_scripts %}
+
     <button type="button" id="speak-button"> 請點擊播放語音 </button>
     <script>
     // 按下播放按鈕
@@ -42,7 +42,9 @@
         
         function speak(text){
         var utterThis = new SpeechSynthesisUtterance(text);
-
+        //var speed = $('#id_speed_method').text()
+        let speed = js_vars.speed_answer
+        alert(speed)
         if(synth.speaking){
             console.error('speechSynthesis.speaking');
             return;
@@ -56,9 +58,9 @@
             console.error('SpeechSynthesisUtterance.onerror')
         }
         utterThis.pitch = 1.0;
-        utterThis.rate = 0.8; //0.7 or 0.8 or 0.9
+        utterThis.rate = speed; //0.7 or 0.8 or 0.9
         synth.speak(utterThis);
-        //alert(text)
+        alert(text)
 }
         }
     </script>
@@ -73,4 +75,3 @@
     {% next_button %}
 
 {% endblock %}
-
