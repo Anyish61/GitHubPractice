@@ -8,7 +8,7 @@ class MyPage(Page):
     form_fields = ['are_you_ok']
     def js_vars(self):
         return dict(
-        speed_answer = self.player.speed_method,
+        speed_method = self.player.speed_method,
         )
 
 
