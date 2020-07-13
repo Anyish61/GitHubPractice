@@ -14,7 +14,7 @@
         width: 280px;
         height: auto;
         font-size: 40px;
-        /* display: none; */
+        display: none;
     }
     .debug-info {
         display: none;
@@ -26,18 +26,24 @@
 {% endblock %}
 
 {% block content %}
-
     大家好
-{% block global_scripts %}
-
     <button type="button" id="speak-button"> 請點擊播放語音 </button>
-    
+    <div class="speech-area">
+        我
+        2 週後  <br>
+        得到 <br>
+    </div>
+    {% formfields %}  
+    {% next_button %}
+{% endblock %}
+
+{% block global_scripts %}   
     <script>
     // 按下播放按鈕
         var synth = window.speechSynthesis;
         $('#speak-button').click(function(){
             text = '我 2週後 得到 120元'//$('#speak-button').text();
-            alert('speak-button: clicked')
+            //alert('speak-button: clicked')
             speak(text)
         })  
         
@@ -51,7 +57,7 @@
         var utterThis = new SpeechSynthesisUtterance(text);
         //var speed = $('#id_speed_method').text()
         let speed = js_vars.speed_method
-        alert(speed)
+        //alert(speed)
         utterThis.onend = function(event) {
             console.log('SpeechSynthesisUtterance.onend')
         }
@@ -65,10 +71,5 @@
         }
         }
     </script>
-
-
-
-{% endblock %}  
-    {% formfields %}  
-    {% next_button %}
 {% endblock %}
+
